@@ -204,7 +204,7 @@ MIT License - feel free to use and modify for your projects!
 
 ## Credits
 
-- Icons: Emoji-based (📚, ✅, 📝, etc.)
+- AI :   Chatgpt  (📚, ✅, 📝, etc.)
 - Fonts: Inter & Poppins (Google Fonts)
 - Charts: Chart.js
 - Date Library: Day.js
