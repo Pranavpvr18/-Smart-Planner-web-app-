@@ -1,0 +1,557 @@
+/* ============================================
+   Calendar Specific Styles
+   ============================================ */
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.calendar-controls {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.calendar-nav-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.calendar-nav-btn:hover {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+    transform: scale(1.1);
+}
+
+#calendarMonthYear {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    min-width: 200px;
+    text-align: center;
+}
+
+.calendar-view-toggle {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.view-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.view-btn.active,
+.view-btn:hover {
+    background: var(--accent-red);
+    border-color: var(--accent-red);
+    color: var(--text-primary);
+}
+
+/* ============================================
+   Month View
+   ============================================ */
+
+.calendar-grid {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.weekday {
+    text-align: center;
+    font-weight: 600;
+    color: var(--text-secondary);
+    padding: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+}
+
+.calendar-day:hover {
+    background: var(--bg-secondary);
+    border-color: var(--accent-red);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.calendar-day.other-month {
+    opacity: 0.3;
+}
+
+.calendar-day.today {
+    background: rgba(244, 67, 54, 0.1);
+    border-color: var(--accent-red);
+    border-width: 2px;
+}
+
+.calendar-day.has-note {
+    border-left: 3px solid var(--accent-blue);
+}
+
+.calendar-day.note-checked {
+    background: rgba(76, 175, 80, 0.15);
+}
+
+.calendar-note-indicator {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.calendar-note-indicator.checked {
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+.calendar-day-number {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.calendar-day-tasks {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    overflow-y: auto;
+}
+
+.calendar-task {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-task:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    position: relative;
+}
+
+.calendar-task.Homework { background: rgba(244, 67, 54, 0.3); color: var(--accent-red); }
+.calendar-task.Exams { background: rgba(33, 150, 243, 0.3); color: var(--accent-blue); }
+.calendar-task.Projects { background: rgba(76, 175, 80, 0.3); color: var(--accent-green); }
+.calendar-task.Revision { background: rgba(255, 152, 0, 0.3); color: var(--accent-orange); }
+.calendar-task.Personal { background: rgba(156, 39, 176, 0.3); color: var(--accent-purple); }
+.calendar-task.Goals { background: rgba(0, 188, 212, 0.3); color: var(--accent-cyan); }
+
+/* ============================================
+   Week View
+   ============================================ */
+
+.week-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.week-header {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-tertiary);
+}
+
+.week-time-col {
+    padding: 1rem;
+    font-weight: 600;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.week-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.week-day-header {
+    padding: 1rem;
+    text-align: center;
+    border-right: 1px solid var(--border-color);
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.week-day-header:hover {
+    background: var(--bg-secondary);
+}
+
+.week-day-header.today {
+    background: rgba(244, 67, 54, 0.1);
+}
+
+.week-day-name {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.week-day-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.week-body {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.week-time-slots {
+    border-right: 1px solid var(--border-color);
+}
+
+.time-slot {
+    height: 60px;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+}
+
+.week-content {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.week-day-column {
+    border-right: 1px solid var(--border-color);
+    position: relative;
+}
+
+.week-day-column:last-child {
+    border-right: none;
+}
+
+.week-task {
+    position: absolute;
+    left: 2px;
+    right: 2px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    z-index: 5;
+}
+
+.week-task:hover {
+    z-index: 10;
+    transform: scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+
+.week-task.Homework { background: rgba(244, 67, 54, 0.3); color: var(--accent-red); border-left: 3px solid var(--accent-red); }
+.week-task.Exams { background: rgba(33, 150, 243, 0.3); color: var(--accent-blue); border-left: 3px solid var(--accent-blue); }
+.week-task.Projects { background: rgba(76, 175, 80, 0.3); color: var(--accent-green); border-left: 3px solid var(--accent-green); }
+.week-task.Revision { background: rgba(255, 152, 0, 0.3); color: var(--accent-orange); border-left: 3px solid var(--accent-orange); }
+.week-task.Personal { background: rgba(156, 39, 176, 0.3); color: var(--accent-purple); border-left: 3px solid var(--accent-purple); }
+.week-task.Goals { background: rgba(0, 188, 212, 0.3); color: var(--accent-cyan); border-left: 3px solid var(--accent-cyan); }
+
+/* ============================================
+   Day View
+   ============================================ */
+
+.day-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.day-header {
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--bg-tertiary);
+}
+
+.day-header h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.day-header p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+}
+
+.day-timeline {
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+.timeline-hour {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    border-bottom: 1px solid var(--border-color);
+    min-height: 80px;
+}
+
+.timeline-time {
+    padding: 1rem;
+    font-weight: 600;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.timeline-content {
+    padding: 0.5rem;
+    position: relative;
+}
+
+.day-task {
+    margin-bottom: 0.5rem;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid;
+}
+
+.day-task:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.day-task.Homework { background: rgba(244, 67, 54, 0.1); border-left-color: var(--accent-red); }
+.day-task.Exams { background: rgba(33, 150, 243, 0.1); border-left-color: var(--accent-blue); }
+.day-task.Projects { background: rgba(76, 175, 80, 0.1); border-left-color: var(--accent-green); }
+.day-task.Revision { background: rgba(255, 152, 0, 0.1); border-left-color: var(--accent-orange); }
+.day-task.Personal { background: rgba(156, 39, 176, 0.1); border-left-color: var(--accent-purple); }
+.day-task.Goals { background: rgba(0, 188, 212, 0.1); border-left-color: var(--accent-cyan); }
+
+.day-task-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.day-task-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* ============================================
+   Calendar Legend
+   ============================================ */
+
+.calendar-legend {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+}
+
+.calendar-legend h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+/* ============================================
+   Drag and Drop
+   ============================================ */
+
+.task-item.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg);
+}
+
+.calendar-day.drag-over {
+    background: rgba(244, 67, 54, 0.2);
+    border-color: var(--accent-red);
+    border-width: 2px;
+}
+
+/* ============================================
+   Calendar Note Modal
+   ============================================ */
+
+.calendar-note-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calendar-note-header h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--accent-green);
+}
+
+.checkbox-label span {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+    .calendar-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .calendar-view-toggle {
+        width: 100%;
+    }
+
+    .view-btn {
+        flex: 1;
+    }
+
+    .calendar-weekdays,
+    .calendar-days {
+        gap: 0.25rem;
+    }
+
+    .calendar-day {
+        min-height: 60px;
+        padding: 0.25rem;
+    }
+
+    .calendar-day-number {
+        font-size: 0.75rem;
+    }
+
+    .calendar-task {
+        font-size: 0.65rem;
+        padding: 0.15rem 0.25rem;
+    }
+
+    .week-header,
+    .week-body {
+        grid-template-columns: 60px 1fr;
+    }
+
+    .week-time-col,
+    .time-slot {
+        font-size: 0.7rem;
+        padding: 0.25rem;
+    }
+
+    .timeline-hour {
+        grid-template-columns: 70px 1fr;
+    }
+
+    .timeline-time {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+}

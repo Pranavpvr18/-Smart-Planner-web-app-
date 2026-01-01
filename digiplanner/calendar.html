@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Smart Planner - Calendar View">
+    <title>Calendar - Smart Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="calendar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#111">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>📚 Smart Planner</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Dashboard</a></li>
+                <li><a href="calendar.html" class="nav-link active">Calendar</a></li>
+                <li><a href="dashboard.html" class="nav-link">Tasks</a></li>
+                <li><a href="analytics.html" class="nav-link">Analytics</a></li>
+            </ul>
+            <div class="nav-profile">
+                <div class="profile-icon" id="profileIcon">👤</div>
+                <div class="profile-menu" id="profileMenu">
+                    <a href="#" id="exportData">Export Data</a>
+                    <a href="#" id="clearData">Clear All Data</a>
+                    <a href="#" id="settingsBtn">Settings</a>
+                </div>
+            </div>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Calendar Header -->
+        <section class="calendar-header">
+            <div class="calendar-controls">
+                <button class="calendar-nav-btn" id="prevMonth">‹</button>
+                <h2 id="calendarMonthYear"></h2>
+                <button class="calendar-nav-btn" id="nextMonth">›</button>
+            </div>
+            <div class="calendar-view-toggle">
+                <button class="view-btn active" data-view="month">Month</button>
+                <button class="view-btn" data-view="week">Week</button>
+                <button class="view-btn" data-view="day">Day</button>
+            </div>
+        </section>
+
+        <!-- Month View -->
+        <section class="calendar-view" id="monthView">
+            <div class="calendar-grid">
+                <div class="calendar-weekdays">
+                    <div class="weekday">Sun</div>
+                    <div class="weekday">Mon</div>
+                    <div class="weekday">Tue</div>
+                    <div class="weekday">Wed</div>
+                    <div class="weekday">Thu</div>
+                    <div class="weekday">Fri</div>
+                    <div class="weekday">Sat</div>
+                </div>
+                <div class="calendar-days" id="calendarDays">
+                    <!-- Calendar days will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Week View -->
+        <section class="calendar-view" id="weekView" style="display: none;">
+            <div class="week-container">
+                <div class="week-header">
+                    <div class="week-time-col">Time</div>
+                    <div class="week-days" id="weekDays">
+                        <!-- Week days will be dynamically inserted here -->
+                    </div>
+                </div>
+                <div class="week-body">
+                    <div class="week-time-slots">
+                        <!-- Time slots will be inserted here -->
+                    </div>
+                    <div class="week-content" id="weekContent">
+                        <!-- Week content will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Day View -->
+        <section class="calendar-view" id="dayView" style="display: none;">
+            <div class="day-container">
+                <div class="day-header" id="dayHeader">
+                    <!-- Day header will be inserted here -->
+                </div>
+                <div class="day-timeline" id="dayTimeline">
+                    <!-- Day timeline will be inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Legend -->
+        <section class="calendar-legend">
+            <h3>Category Colors</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #F44336;"></span>
+                    <span>Homework</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #2196F3;"></span>
+                    <span>Exams</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #4CAF50;"></span>
+                    <span>Projects</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #FF9800;"></span>
+                    <span>Revision</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #9C27B0;"></span>
+                    <span>Personal</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #00BCD4;"></span>
+                    <span>Goals</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="fabAddTask" title="Add Task (A)">
+        <span>+</span>
+    </button>
+
+    <!-- Calendar Note Modal -->
+    <div class="modal" id="calendarNoteModal">
+        <div class="modal-content">
+            <span class="modal-close" id="calendarNoteModalClose">&times;</span>
+            <h2>Date Notes & Tasks</h2>
+            <div class="calendar-note-header">
+                <h3 id="calendarNoteDate"></h3>
+                <label class="checkbox-label">
+                    <input type="checkbox" id="calendarNoteChecked">
+                    <span>Mark as completed</span>
+                </label>
+            </div>
+            <form id="calendarNoteForm">
+                <div class="form-group">
+                    <label for="calendarNoteText">Notes & Tasks for this date:</label>
+                    <textarea id="calendarNoteText" rows="6" placeholder="Add your notes, reminders, or tasks for this date..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="calendarNoteCancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <span class="modal-close" id="modalClose">&times;</span>
+            <h2 id="modalTitle">Add New Task</h2>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="taskTitle">Task Title *</label>
+                    <input type="text" id="taskTitle" required placeholder="e.g., Math Homework">
+                </div>
+                <div class="form-group">
+                    <label for="taskCategory">Category *</label>
+                    <select id="taskCategory" required>
+                        <option value="Homework">Homework</option>
+                        <option value="Exams">Exams</option>
+                        <option value="Projects">Projects</option>
+                        <option value="Revision">Revision</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Goals">Goals / Habits</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskPriority">Priority *</label>
+                    <select id="taskPriority" required>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskDueDate">Due Date *</label>
+                    <input type="date" id="taskDueDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskNotes">Notes</label>
+                    <textarea id="taskNotes" rows="4" placeholder="Add any additional notes..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confetti Canvas -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.10/dayjs.min.js"></script>
+    <script src="api.js"></script>
+    <script src="script.js"></script>
+    <script src="tasks.js"></script>
+    <script src="calendar-notes.js"></script>
+    <script src="calendar-view.js"></script>
+    <script src="offline.js"></script>
+</body>
+</html>
